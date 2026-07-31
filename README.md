@@ -112,8 +112,7 @@ Har bandni **testnet'da** bajaring va natijani yozib boring.
 
 Ochiq aytilsin — bu tugallangan mahsulot emas:
 
-- **Admin paneli** yo'q. Bog'lanmagan to'lovlar, `failed` chiqimlar va
-  nizolarni ko'rish uchun kerak. Birinchi navbatda shu yozilishi lozim.
+- ~~Admin paneli~~ ✅ yozildi (`/admin`, `/deal <id>`)
 - **Sovg'a yetkazilishini yakuniy tasdiqlash oqimi** to'liq ulanmagan.
   `gift_service` tayyor, lekin uni biznes ulanish handleri bilan bog'lash
   kerak (`business_connection` update'ini qabul qilish).
@@ -138,3 +137,47 @@ oldin o'z hududingizdagi holatni aniqlab oling.
 **Obro'.** Garant xizmatida bitta noto'g'ri hal qilingan nizo yetarli.
 `deal_events` jadvalini hech qachon o'chirmang — nizoda yagona dalilingiz
 o'sha.
+
+---
+
+## Admin panel
+
+`ADMIN_IDS` ro'yxatidagi foydalanuvchilar uchun:
+
+| Buyruq | Vazifa |
+|---|---|
+| `/admin` | Asosiy panel |
+| `/deal 12` | Bitimning to'liq tarixi (nizolarda ishlatiladi) |
+
+Panel bo'limlari:
+
+- **Statistika** — foydalanuvchilar, hajm, komissiya daromadi, bitimlar holati
+- **Bog'lanmagan to'lovlar** — comment'siz kelgan pullar. Muntazam
+  ko'rib turing, aks holda odam "pulim yo'qoldi" deb yozguncha
+  xabaringiz bo'lmaydi
+- **Muammoli chiqimlar** — `failed` va `sending` holatidagilar.
+  `sending` degani bot TON yuborayotganda qulagan: pul ketgan yoki
+  ketmagan bo'lishi mumkin, blokcheyndan qo'lda tekshiring
+- **Tasdiq kutayotganlar** — `MANUAL_APPROVAL_ABOVE_TON` dan katta chiqimlar
+- **🔴 Chiqimni to'xtatish** — shubhali narsa sezsangiz birinchi
+  bosiladigan tugma. Botni o'chirishdan afzal: bitimlar ochiq qoladi,
+  faqat pul chiqmaydi
+
+---
+
+## GitHub'ga joylash
+
+Web interfeysdagi "Add files via upload" papkalarni saqlamaydi —
+fayllar tekis tushadi va importlar buziladi. Git ishlating:
+
+```bash
+bash setup_git.sh https://github.com/FOYDALANUVCHI/REPO.git
+```
+
+Skript push'dan oldin `.env` commit'ga tushmayotganini tekshiradi va
+tushayotgan bo'lsa to'xtatadi.
+
+**Nega bu muhim:** `.env` ichida `ESCROW_MNEMONIC` bor — hamyondagi
+pulni to'liq boshqaradigan 24 so'z. Ochiq repolarni botlar doimiy
+skanerlaydi. Bir marta ko'ringan mnemonic — o'lgan mnemonic, uni
+almashtirishdan boshqa yo'l yo'q.
